@@ -6,20 +6,20 @@ def getLoginPage(address, port):
     res = requests.get(URL_LOGIN)
     return res.headers, res.text
 def postLoginPage(address, port, username, password):
-    URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/test.txt"
+    URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/credentials.txt"
     payload = {"username":username, "password":password}
-    print(payload)
     res2 = requests.post(URL_LOGIN, data=payload)
     print(res2.headers)
+    print(res2.text)
     return res2.headers, res2.text
 def postChatPage(address, port, username, password, message, cookie):
-    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/"
+    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/chat-test.txt"
     payload = {"message":message}
     ck = {"cookie_id":cookie}
     res3 = requests.post(URL_CHAT, data=payload, cookies=ck)
     return res3.headers, res3.text
 def getChatPage(address, port):
-    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/"
+    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/chat.html"
     res4 = requests.get(URL_CHAT)
     return res4.headers, res4.text
 if __name__ == '__main__':
@@ -44,13 +44,12 @@ if __name__ == '__main__':
         h2,p2 = postLoginPage(address, port, username, password)
         print("\n\n test2"+"-"*20)
         # print("type=",type(p2))
-        print(p2)
-        print(h2)
         if p2==ERROR_STRING:
             print("Error encountered")
         else:
             if "Set-Cookie" in h2:
                 login_cookie = h2['Set-Cookie']
+                print(login_cookie)
                 # test3
                 h3,p3 = postChatPage(address, port, username, password, message, login_cookie)
                 print("\n\n test3"+"-"*20)

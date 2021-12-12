@@ -61,10 +61,11 @@ public class Server {
         OutputStream clientOutput = client.getOutputStream();
         clientOutput.write(("HTTP/1.1 200 OK" + status + "\r\n").getBytes());
         clientOutput.write(("ContentType: " + contentType + "\r\n").getBytes());
+        clientOutput.write(("Set-Cookie:" + "user2" + "\r\n").getBytes());
         clientOutput.write("\r\n".getBytes());
         clientOutput.write(content);
         clientOutput.write("\r\n\r\n".getBytes());
-        clientOutput.write(("Set-Cookie").getBytes());
+
         clientOutput.flush();
         client.close();
     }
