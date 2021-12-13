@@ -3,18 +3,18 @@ import sys
 from utils import ERROR_STRING
 
 def getLoginPage(address, port):
-    URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/login.html"
+    URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/"
     res = requests.get(URL_LOGIN)
     return res.headers, res.text
 
 def postLoginPage(address, port, username, password):
-    URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/login.html"
+    URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/"
     payload = {"username":username, "password":password}
     res2 = requests.post(URL_LOGIN, data=payload)
     return res2.headers, res2.text
 
 def postChatPage(address, port, username, password, message, cookie):
-    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/chat.html"
+    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/"
     payload = {"message":message}
     ck = {"cookie_id":cookie}
     print(cookie)
@@ -22,7 +22,7 @@ def postChatPage(address, port, username, password, message, cookie):
     return res3.headers, res3.text
 
 def getChatPage(address, port):
-    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/chat.html"
+    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/"
     res4 = requests.get(URL_CHAT)
     return res4.headers, res4.text
 
@@ -47,13 +47,13 @@ if __name__ == '__main__':
         # test2
         h2,p2 = postLoginPage(address, port, username, password)
         print("\n\n test2"+"-"*20)
+        print(p2)
         # print("type=",type(p2))
         if p2==ERROR_STRING:
             print("Error encountered")
         else:
             if "Set-Cookie" in h2:
                 login_cookie = h2['Set-Cookie']
-                print(login_cookie)
                 # test3
                 h3,p3 = postChatPage(address, port, username, password, message, login_cookie)
                 print("\n\n test3"+"-"*20)
