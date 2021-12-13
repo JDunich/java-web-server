@@ -23,7 +23,6 @@ public class Server {
     /**
      * Runs the server and loops through the client handler to handle client requests and connections
      * @param args command line argument <port number>
-     * @throws Exception
      */
     public static void main( String[] args ) throws Exception {
         if (args.length != 1)
@@ -46,7 +45,6 @@ public class Server {
     /**
      * Method that handles client requests dependent on whether they are GET or POST requests
      * @param client Socket that is being listened to
-     * @throws IOException
      */
     private static void handleClient(Socket client) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(client.getInputStream()));
@@ -71,7 +69,7 @@ public class Server {
             if(!header.equals(""))
                 headers.add(header);
         }
-        String accessLog = String.format("Client %s, method %s, path %s, version %s, host %s, headers %s", client.toString(), method, path, version, host, headers.toString());
+        String accessLog = String.format("Client %s, method %s, path %s, version %s, host %s, headers %s", client, method, path, version, host, headers);
         System.out.println(accessLog);
 
         //checks if the method is a GET or POST and preforms needed tasks based on if it is the login or chat window
@@ -131,7 +129,6 @@ public class Server {
      * @param status status of server
      * @param contentType type of content being communicated
      * @param content content being communicated
-     * @throws IOException
      */
     private static void sendResponse(Socket client, String status, String contentType, byte[] content) throws IOException {
         OutputStream clientOutput = client.getOutputStream();
@@ -163,7 +160,6 @@ public class Server {
      * Content type based on given path
      * @param filePath path to specified file
      * @return String of type
-     * @throws IOException
      */
     private static String guessContentType(Path filePath) throws IOException {
         return Files.probeContentType(filePath);
@@ -174,7 +170,6 @@ public class Server {
      * @param user username
      * @param pass passwork
      * @return returns true if valid, false is not valid
-     * @throws IOException
      */
     private static boolean validLogin(String user, String pass) throws IOException {
         String file ="login/credentials.txt";
@@ -193,7 +188,6 @@ public class Server {
      * Checks if cookie being received is stored in database
      * @param cookie cookie
      * @return true if it is in database, false if not
-     * @throws IOException
      */
     private static boolean validCookie(String cookie) throws IOException {
         String file = "allCookies.txt";
@@ -210,7 +204,6 @@ public class Server {
      * Appends cookies to database
      * @param cookie cookie
      * @param user user
-     * @throws IOException
      */
     private static void appendCookie(String cookie, String user) throws IOException {
         String file ="allCookies.txt";
@@ -224,7 +217,6 @@ public class Server {
      * @param cookie cookie
      * @param message message
      * @return returns a string of the full html
-     * @throws IOException
      */
     private static String postHTML(String cookie, String message) throws IOException {
         String user = findUser(cookie);
@@ -252,7 +244,6 @@ public class Server {
      * Finds user based on cookie
      * @param cookie cookie
      * @return returns the user with the cookie
-     * @throws IOException
      */
     private static String findUser(String cookie) throws IOException {
         String file = "allCookies.txt";
