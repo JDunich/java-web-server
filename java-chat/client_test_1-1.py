@@ -1,27 +1,31 @@
 import requests
 import sys
 from utils import ERROR_STRING
+
 def getLoginPage(address, port):
     URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/login.html"
     res = requests.get(URL_LOGIN)
     return res.headers, res.text
+
 def postLoginPage(address, port, username, password):
-    URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/credentials.txt"
+    URL_LOGIN = "http://" + str(address) + ":" + str(port) + "/login/login.html"
     payload = {"username":username, "password":password}
     res2 = requests.post(URL_LOGIN, data=payload)
-    print(res2.headers)
-    print(res2.text)
     return res2.headers, res2.text
+
 def postChatPage(address, port, username, password, message, cookie):
-    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/chat-test.txt"
+    URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/chat.html"
     payload = {"message":message}
     ck = {"cookie_id":cookie}
+    print(cookie)
     res3 = requests.post(URL_CHAT, data=payload, cookies=ck)
     return res3.headers, res3.text
+
 def getChatPage(address, port):
     URL_CHAT = "http://" + str(address) + ":" + str(port) + "/chat/chat.html"
     res4 = requests.get(URL_CHAT)
     return res4.headers, res4.text
+
 if __name__ == '__main__':
     argLength = len(sys.argv)
     allArgs = sys.argv
