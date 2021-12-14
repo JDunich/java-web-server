@@ -57,8 +57,8 @@ if __name__ == '__main__':
         # test2
         h2,p2 = postLoginPage(address, port, username, password)    
         print("\n\n test2"+"-"*20)
-        # print("type=",type(p2))
-        print(p2)  
+        #print("type=",type(p2))
+        print(p2)
 
 
         if p2==ERROR_STRING:

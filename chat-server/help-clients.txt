@@ -1,17 +1,17 @@
-Methods to run the CS352 test clients against the example Server.
+Methods to run the CS352 test clients against the example HTTPChatServer.
 
-Your Server should pass all these test with any username or password file and any set of messages.
+Your HTTPChatServer should pass all these test with any username or password file and any set of messages.
 
 Run methods : 
 
 ------------------------------------------------------------
-TEST1 : Testing Server with single client (correct set of username-password)
+TEST1 : Testing HTTPChatServer with single client (correct set of username-password)
 
 Format = python3 client_test_1.py <address> <port> <username> <password> <message>
 Example = python3 client_test_1.py 0.0.0.0 5050 user2 pwdB "hello friends, morning"
 
 ------------------------------------------------------------
-TEST2 : Testing Server with multiple clients (run multiple instances of same script from multiple terminal windows with different pairs of username-password and message)
+TEST2 : Testing HTTPChatServer with multiple clients (run multiple instances of same script from multiple terminal windows with different pairs of username-password and message)
 
 Format = python3 client_test_1.py <address> <port> <username> <password> <message>
 Example = python3 client_test_1.py 0.0.0.0 5050 user2 pwdB "hello friends, morning"
@@ -19,19 +19,19 @@ Example = python3 client_test_1.py 0.0.0.0 5050 user1 pwdA "good afternoon"
 Example = python3 client_test_1.py 0.0.0.0 5050 userB pwd2 "hi everyone"
 
 ------------------------------------------------------------
-TEST3 : Testing Server with single client (wrong password for a valid username)
+TEST3 : Testing HTTPChatServer with single client (wrong password for a valid username)
 
 Format = python3 client_test_1.py <address> <port> <username> <password> <message>
 Example = python3 client_test_1.py 0.0.0.0 5050 user2 abcdxyz "hello"
 
 ------------------------------------------------------------
-TEST4 : Testing Server with single client (invalid username)
+TEST4 : Testing HTTPChatServer with single client (invalid username)
 
 Format = python3 client_test_1.py <address> <port> <username> <password> <message>
 Example = python3 client_test_1.py 0.0.0.0 5050 user10 abcdxyz "hi"
 
 ------------------------------------------------------------
-TEST5 : Testing Server with login bypass and random cookie
+TEST5 : Testing HTTPChatServer with login bypass and random cookie
 
 Format = python3 client_test_2.py <address> <port> <username> <password> <cookie> <message>
 Example = python3 client_test_2.py 0.0.0.0 5050 user2 pwdB abcd1234 "hi"

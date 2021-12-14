@@ -11,8 +11,9 @@ import java.util.Scanner;
 /**
  * Handles Client POST and GETs for the java chat server
  * @author Jack Dunich
+ * @author Kenny Lee
  */
-public class Server {
+public class HTTPChatServer {
 
     private static final ArrayList<String> cookies = new ArrayList<>();
     private static final ArrayList<String> messages = new ArrayList<>();
@@ -88,9 +89,10 @@ public class Server {
                 String user = userPass[0];
                 String pass = userPass[1];
                 System.out.println("User Login information: username-> " + user + " password-> " + pass);
-                if(!validLogin(user, pass))
+                if(!validLogin(user, pass)) {
                     System.out.println("INVALID CREDENTIALS!");
-                else
+                    path = "login/error.html";
+                }else
                     System.out.println("Start Chatting");
                 if(!cookies.contains(user)){
                     cookies.add(user);
@@ -103,6 +105,7 @@ public class Server {
                 path += "chat.html";
                 if (!validCookie(headers.get(4).replace("Cookie: cookie_id=", ""))) {
                     System.out.println("INVALID COOKIE!");
+                    path = "login/error.html";
                 } else {
                     System.out.println("Reading HTML Chat...");
                     temp = postHTML(headers.get(4).replace("Cookie: cookie_id=", ""), headers.get(7).replace("message=", ""));
@@ -138,8 +141,6 @@ public class Server {
             clientOutput.write(("Set-Cookie: " + userData + "\r\n").getBytes());
         clientOutput.write("\r\n".getBytes());
         clientOutput.write(content);
-        clientOutput.write("\r\n\r\n".getBytes());
-
         clientOutput.flush();
         client.close();
     }
@@ -168,7 +169,7 @@ public class Server {
     /**
      * Checks if the username and password for the client is valid
      * @param user username
-     * @param pass passwork
+     * @param pass password
      * @return returns true if valid, false is not valid
      */
     private static boolean validLogin(String user, String pass) throws IOException {
@@ -194,7 +195,8 @@ public class Server {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         while(reader.ready()){
             String line = reader.readLine();
-            if(line.contains(cookie))
+            String userCookie = line.split(",")[1];
+            if(userCookie.equals(cookie))
                 return true;
         }
         return false;
