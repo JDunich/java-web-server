@@ -139,7 +139,6 @@ public class HTTPChatServer {
         clientOutput.write(("ContentType: " + contentType + "\r\n").getBytes());
         if(!(userData == null))
             clientOutput.write(("Set-Cookie: " + userData + "\r\n").getBytes());
-        clientOutput.write("\r\n".getBytes());
         clientOutput.write(content);
         clientOutput.flush();
         client.close();
